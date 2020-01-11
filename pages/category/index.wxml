@@ -1,0 +1,24 @@
+<!--pages/category/index.wxml-->
+<view class="section">
+    <!-- 左侧类型 -->
+    <scroll-view scroll-y="true" class="left">
+        <view wx:for="{{types}}" wx:key="typeId" data-type-id="{{item.id}}" bindtap="tapType" class="{{item.id == currType ? 'active' : ''}}" style="font-size:33rpx" ><!--class="{{item.id == currType ? 'active' : ''}}" 这为一个动态样式：item.id表示的是types数组里的id即大类的id,currType值可以在js中                             获得，默认值是0表示没有id传来时这里的class="{{item.id == currType ? 'active' : ''}}"没有任何样式,item.id为1左边栏白色，其它栏目                                 灰色，以此类推-->
+    <!--for="{{types}}"循环的数据，数组当前项的变量名默认为 item,data-type-id="{{item.id}}"是data自定义属性自定义type-id,wx:key
+    如果列表中项目的位置会动态改变或者有新的项目添加到列表中，并且希望列表中的项目保持自己的特征和状态（如 input 中的输入内容，switch 的选中状态），需要使用 wx:key       来指定列表中项目的唯一的标识符。-->
+            {{item.typename}}
+        </view>
+    </scroll-view>
+
+    <!-- 右侧数据 -->
+    <scroll-view scroll-y="true" class="right"><!--scroll-view是滚动视图区域，scroll-y="true"表示在y轴上进行滚动-->
+        <view class="typeTree">
+            <view  class="brand" wx:for="{{typeTree}}" wx:for-item="data">
+                <navigator url="../listdetail/listdetail?cat_id={{data.id}}&title={{data.typename}}" wx:key="typeId" class="item">
+                     <image src="http://localhost/20190923tpmyweb/Public/Uploads/image/20191022/{{data.STypeLogo}}.jpg"></image>
+                     <text>{{data.typename}}</text>
+                </navigator>
+                  
+            </view>
+        </view>
+    </scroll-view>
+</view>

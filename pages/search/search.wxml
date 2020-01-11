@@ -1,0 +1,28 @@
+<!--pages/search/search.wxml-->
+<view class="search df">
+    <input class="df_1" placeholder="请输入你有搜索的内容" value="{{searchValue}}" bindinput="searchValueInput"/>
+    <button bindtap="doSearch"><image class="searchcion" src="/images/search.png"></image></button>
+</view>
+<view class="cont" wx:if="{{hotKeyShow}}">
+    <text class="font_14">热门搜索</text>
+    <view class="w100">
+        <button wx:for="{{hotKeyList}}" bindtap="doKeySearch" data-key="{{item.keyword}}">{{item.keyword}}</button>
+    </view>
+    <text class="font_14 mt10">历史搜索</text>
+    <view class="w100">
+        <button wx:for="{{historyKeyList}}" bindtap="doKeySearch" data-key="{{item.keyword}}">{{item.keyword}}</button>
+    </view>
+</view>
+<view class="search_no" wx:if="{{searchValue &&!productData.length}}" hidden="{{informHidden}}"><!--这里x:if="{{searchValue &&!productData.length}}"和 hidden="{{informHidden}}要搭配使用双剑合璧才能正确显示以下内容，当searchValue并且productData.length有值时，显示没有找到你要的宝贝和相关图片，除此以外不显示，因此初始化和加载时要在js中把informHidden:true(先隐藏)-->
+    <view class="font_14"><image class="scimg" src="/images/search_no.png"></image></view>
+    <text>没有找到您要的宝贝/(ㄒoㄒ)/~~</text>
+</view>
+<view class="shop" wx:for="{{productData}}"> 
+    <navigator url="../product/detail?productId={{item.id}}" hover-class="changestyle">      
+        <image class="sh_slt" src="{{item.bookimg}}"></image>
+        <view class="sp_text">
+            <view class="sp_tit ovh1">{{item.productname}}</view>
+            <view class="sp_jg">￥ {{item.memberprice}}</view>
+        </view>
+    </navigator>
+</view>
